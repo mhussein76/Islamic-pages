@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>عدّاد الاستغفار - خفّف حملك</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+body{margin:0;min-height:100vh;font-family:'Tajawal',sans-serif;color:#3a2410;background:#f3dd9c;display:flex;justify-content:center}
+.app{width:100%;max-width:440px;background:linear-gradient(#fdf0c8,#f1d78d 55%,#e3bd66);padding-bottom:calc(env(safe-area-inset-bottom) + 18px)}
+#scene{direction:ltr;display:block;width:100%;height:auto;touch-action:manipulation;cursor:pointer}
+.ground-ticks{animation:slide 1.4s linear infinite}
+@keyframes slide{to{transform:translateX(-48px)}}
+.twinkle{animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.25}}
+.panel{padding:0 16px}
+.big{width:100%;border:0;border-radius:20px;padding:16px;font:inherit;font-weight:900;font-size:26px;cursor:pointer;color:#fff7dc;
+background:linear-gradient(180deg,#9a6a3a,#6b4425);box-shadow:0 6px 0 #4a2d16,0 12px 24px rgba(74,45,22,.35);transition:transform .06s,box-shadow .06s;font-family:'Amiri',serif}
+.big:active{transform:translateY(5px);box-shadow:0 1px 0 #4a2d16,0 4px 10px rgba(74,45,22,.3)}
+.chips{display:flex;gap:8px;justify-content:center;margin:16px 0 12px}
+.chip{padding:7px 18px;border-radius:99px;border:1.5px solid #9a6a3a;background:transparent;color:#5b3a1c;font:inherit;font-size:15px;cursor:pointer}
+.chip.on{background:#6b4425;color:#fff7dc;border-color:#6b4425;font-weight:700}
+.stats{display:flex;gap:8px;margin-bottom:12px}
+.card{flex:1;text-align:center;padding:10px 4px;border-radius:14px;background:rgba(255,255,255,.45)}
+.card b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.card span{font-size:12px;opacity:.7}
+.row{display:flex;gap:10px}
+.act{flex:1;padding:13px;border-radius:14px;border:0;font:inherit;font-weight:700;font-size:16px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.wa{background:#25d366;color:#04230f}
+.rs{background:rgba(107,68,37,.15);color:#4a2d16}
+.done{position:fixed;inset:0;background:rgba(58,36,16,.78);display:none;align-items:center;justify-content:center;z-index:9;padding:24px}
+.done.show{display:flex}
+.done div{background:linear-gradient(170deg,#fff3cc,#f0d086);border:2px solid #9a6a3a;border-radius:24px;padding:28px 22px;max-width:340px;text-align:center;animation:up .4s}
+@keyframes up{from{transform:scale(.8);opacity:0}}
+.done h2{font-family:'Amiri',serif;font-size:30px;margin:0 0 8px}
+.done p{margin:0;line-height:1.8}
+.done button{margin-top:16px;padding:12px 28px;border-radius:12px;border:0;background:#6b4425;color:#fff7dc;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="app">
+<svg id="scene" viewBox="0 0 360 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff4cf"/><stop offset=".6" stop-color="#f6df9a"/><stop offset="1" stop-color="#e8c36e"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff9dd" stop-opacity=".95"/><stop offset="1" stop-color="#fff9dd" stop-opacity="0"/></radialGradient>
+    <radialGradient id="bead" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff2b8"/><stop offset=".5" stop-color="#e2b64a"/><stop offset="1" stop-color="#9c7020"/></radialGradient>
+    <radialGradient id="ball" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#6a5a4c"/><stop offset=".45" stop-color="#2a1d14"/><stop offset="1" stop-color="#050302"/></radialGradient>
+    <linearGradient id="bowlg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9b6a46"/><stop offset="1" stop-color="#523322"/></linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff"/><stop offset=".95" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>
+    <mask id="beadmask"><rect x="0" y="150" width="168" height="170" fill="url(#fade)"/></mask>
+    <mask id="moonmask"><rect x="260" y="10" width="100" height="100" fill="#fff"/><circle cx="312" cy="46" r="22" fill="#000"/></mask>
+  </defs>
+
+  <rect width="360" height="600" fill="url(#sky)"/>
+  <circle cx="300" cy="60" r="90" fill="url(#glow)"/>
+  <circle cx="300" cy="58" r="26" fill="#f9e7a6" mask="url(#moonmask)"/>
+  <g fill="#fff6d2">
+    <circle class="twinkle" cx="40" cy="45" r="2"/><circle class="twinkle" style="animation-delay:1s" cx="110" cy="30" r="1.6"/>
+    <circle class="twinkle" style="animation-delay:2s" cx="225" cy="52" r="1.8"/><circle class="twinkle" style="animation-delay:.5s" cx="190" cy="22" r="1.4"/>
+  </g>
+
+  <text x="180" y="108" text-anchor="middle" font-family="Amiri,serif" font-weight="700" font-size="50" fill="#2e1a0a">أَسْتَغْفِرُ اللَّهَ</text>
+  <text x="180" y="138" text-anchor="middle" font-family="Tajawal,sans-serif" font-size="15" fill="#6b4a25">أطلب المغفرة من الله</text>
+  <g stroke="#b88a3a" fill="#b88a3a"><line x1="130" y1="152" x2="172" y2="152" stroke-width="1"/><line x1="188" y1="152" x2="230" y2="152" stroke-width="1"/><path d="M180 147l5 5-5 5-5-5z" stroke="none"/></g>
+
+  <!-- beads -->
+  <g>
+    <path d="M-30 175L166 232" stroke="#a97a2c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="167" cy="232.5" r="4" fill="#8a5a1c"/>
+    <g id="beads"></g>
+  </g>
+
+  <!-- ring -->
+  <g>
+    <circle cx="75" cy="300" r="40" fill="#fff4d0" stroke="#d9b45c" stroke-width="3"/>
+    <circle cx="75" cy="300" r="40" fill="none" stroke="#e7d4a0" stroke-width="6" transform="rotate(-90 75 300)" opacity=".0"/>
+    <circle id="ringp" cx="75" cy="300" r="46" fill="none" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round" transform="rotate(-90 75 300)" stroke-dasharray="289" stroke-dashoffset="289"/>
+    <text id="cnum" x="75" y="310" text-anchor="middle" font-family="Tajawal,sans-serif" font-weight="900" font-size="30" fill="#2e1a0a">0</text>
+    <text id="ctar" x="75" y="326" text-anchor="middle" font-family="Tajawal,sans-serif" font-size="12" fill="#7a5a30">/ 100</text>
+  </g>
+  <text x="338" y="292" text-anchor="end" font-family="Amiri,serif" font-weight="700" font-size="30" fill="#2e1a0a">خفّف حملك</text>
+  <text x="338" y="316" text-anchor="end" font-family="Tajawal,sans-serif" font-size="14" fill="#6b4a25">كل استغفار يُسقط ذنبًا</text>
+
+  <!-- ground -->
+  <path d="M0 540C60 520 120 534 190 526C260 518 310 530 360 522V600H0Z" fill="#e0b85c"/>
+  <path d="M0 560C70 548 150 560 230 552C290 546 330 556 360 552V600H0Z" fill="#d3a64a"/>
+  <g stroke="#9a6d2e" stroke-width="2" opacity=".55"><g class="ground-ticks" id="ticks"></g></g>
+  <ellipse id="shadow" cx="150" cy="552" rx="70" ry="6" fill="#6b4a25" opacity=".25"/>
+
+  <!-- figure -->
+  <g id="fig" fill="none" stroke="#2b1a10" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path id="legB" opacity=".85"/><path id="armB" stroke-width="6" opacity=".85"/>
+    <path id="torso"/><path id="legF"/><path id="armF" stroke-width="6"/>
+    <g id="head" stroke="none">
+      <circle r="13.5" fill="#2b1a10"/>
+      <circle cx="6" cy="-2" r="2" fill="#f6df9a"/>
+      <path id="mouth" fill="none" stroke="#f6df9a" stroke-width="1.8" stroke-linecap="round"/>
+      <path id="sweat" d="M-6 -12c-3 4-3 7 0 7s3-3 0-7z" fill="#bcd9ee"/>
+    </g>
+  </g>
+
+  <!-- bowl -->
+  <g id="bowl">
+    <path d="M-68 0H68C62 26 38 38 0 38C-38 38 -62 26 -68 0Z" fill="url(#bowlg)"/>
+    <text x="0" y="25" text-anchor="middle" font-family="Amiri,serif" font-weight="700" font-size="17" fill="#f5d98a">ذنوب</text>
+    <g id="balls"></g>
+    <ellipse cx="0" cy="0" rx="68" ry="4" fill="#6a4429"/>
+    <g id="fly"></g>
+  </g>
+  <g id="drops"></g>
+</svg>
+
+<div class="panel">
+  <button class="big" id="btn">أستغفر الله</button>
+  <div class="chips" id="chips">
+    <button class="chip" data-t="33">33</button>
+    <button class="chip on" data-t="100">100</button>
+    <button class="chip" data-t="1000">1000</button>
+  </div>
+  <div class="stats">
+    <div class="card"><b id="today">0</b><span>اليوم</span></div>
+    <div class="card"><b id="rounds">0</b><span>دورات مكتملة</span></div>
+    <div class="card"><b id="total">0</b><span>الإجمالي</span></div>
+  </div>
+  <div class="row">
+    <button class="act rs" id="reset">إعادة</button>
+  </div>
+</div>
+</div>
+
+<div class="done" id="done"><div>
+  <h2>خفّ حملك، تقبّل الله</h2>
+  <p id="doneTxt"></p>
+  <button id="ok">دورة جديدة</button>
+</div></div>
+
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg',$=function(i){return document.getElementById(i)};
+var G=548,HX=165,N=100,ROWS=[14,13,12,11,10,9,8,7,6,5,4,1];
+var st={count:0,target:100,rounds:0,total:0,today:0,day:''};
+function load(){try{var s=JSON.parse(localStorage.getItem('istighfar2')||'{}');for(var k in s)st[k]=s[k]}catch(e){}
+  var d=new Date().toDateString();if(st.day!==d){st.day=d;st.today=0}}
+function save(){try{localStorage.setItem('istighfar2',JSON.stringify(st))}catch(e){}}
+function ar(n){return Number(n).toLocaleString('en-US')}
+function mk(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e}
+function lerp(a,b,t){return a+(b-a)*t}
+var R=Math.PI/180;
+
+// beads
+var beadsG=$('beads');
+var beadEls=[];
+for(var i=-3;i<=6;i++){
+  var sh=mk('circle',{r:11,fill:'rgba(80,50,10,.25)'},beadsG),bd=mk('circle',{r:11,fill:'url(#bead)'},beadsG);
+  beadEls.push({i:i,sh:sh,bd:bd});}
+// ticks
+var tk=$('ticks');for(var i=0;i<14;i++){mk('line',{x1:i*48,y1:566,x2:i*48,y2:576},tk);mk('line',{x1:i*48+24,y1:570,x2:i*48+24,y2:576},tk)}
+
+// balls
+var ballsG=$('balls'),balls=[];
+ROWS.forEach(function(n,i){for(var j=0;j<n;j++){
+  var x=(j-(n-1)/2)*8.4,y=-4.6-i*7.3;
+  var c=mk('circle',{cx:x,cy:y,r:4.2,fill:'url(#ball)'},ballsG);
+  balls.push({el:c,x:x,y:y,row:i,alive:true,r:Math.random()});}});
+var order=balls.map(function(b,i){return i}).sort(function(a,b){return (balls[b].row-balls[a].row)||(balls[a].r-balls[b].r)});
+var flyers=[],flyG=$('fly');
+function alive(){return balls.filter(function(b){return b.alive}).length}
+function T(){return st.target}
+function removeOne(quiet){
+  for(var k=0;k<order.length;k++){var b=balls[order[k]];if(b.alive){b.alive=false;b.el.style.display='none';
+    if(!quiet){var e=mk('circle',{cx:b.x,cy:b.y,r:4.2,fill:'#2a1d14'},flyG);
+      flyers.push({el:e,x:b.x,y:b.y,vx:(Math.random()<.5?-1:1)*(1.8+Math.random()*2.4),vy:-3.5-Math.random()*2.5,l:0})}
+    return}}}
+function refill(){if(typeof clearDrops==='function')clearDrops();balls.forEach(function(b){b.alive=true;b.el.style.display='';b.el.style.opacity=0;b.el.style.transition='opacity .8s';
+  setTimeout(function(){b.el.style.opacity=1},30)})}
+function sync(quiet){var want=N-Math.floor(N*Math.min(st.count/T(),1));var n=alive();while(n>want&&n>0){removeOne(quiet);n--}}
+
+// loop
+var fall={on:false,x:0,y:0,vx:0,vy:0,rot:0,vr:0},bowlX=0,bowlY=0,pending=0,drops=[],sparks=[],disp=0,kick=0,beadT=0,beadV=0,lastNum=-1;
+var $legB=$('legB'),$legF=$('legF'),$torso=$('torso'),$armF=$('armF'),$armB=$('armB'),$head=$('head'),$mouth=$('mouth'),$sweat=$('sweat'),$bowl=$('bowl'),$shadow=$('shadow');
+function draw(t,time){
+  var reach=lerp(54,70,t),walk=time*7,amp=lerp(21,27,t);
+  var hy=G-reach-Math.abs(Math.sin(walk))*3.2-kick*5;
+  function leg(el,ph){
+    var fx=HX+amp*Math.sin(ph)-6,fy=G-Math.max(0,Math.cos(ph))*16;
+    var dx=fx-HX,dy=fy-hy,L=Math.sqrt(dx*dx+dy*dy),ux=dx/L,uy=dy/L,d=Math.min(L,71.5);
+    var mx=HX+ux*d/2,my=hy+uy*d/2,h=Math.sqrt(1296-d*d/4);
+    var kx=mx+uy*h,ky=my-ux*h,ex=HX+ux*d,ey=hy+uy*d;
+    el.setAttribute('d','M'+HX+' '+hy+'L'+kx+' '+ky+'L'+ex+' '+ey+'l9 0');}
+  leg($legF,walk);leg($legB,walk+Math.PI);
+  var s=lerp(68,3,t)*R,sx=HX+60*Math.sin(s),sy=hy-60*Math.cos(s);
+  $torso.setAttribute('d','M'+HX+' '+hy+'L'+sx+' '+sy);
+  var bx=sx-30,by=sy-56;bowlX=bx;bowlY=by;
+  if(fall.on){
+    fall.vy+=.7;fall.y+=fall.vy;fall.x+=fall.vx;fall.rot=Math.max(-26,fall.rot+fall.vr);
+    var gy=G-26;if(fall.y>=gy){fall.y=gy;if(Math.abs(fall.vy)>3){fall.vy*=-.35;fall.vr*=.5}else{fall.vy=0;fall.vx=0;fall.vr=0}}
+    $bowl.setAttribute('transform','translate('+fall.x+' '+fall.y+') rotate('+fall.rot+')');
+    $armF.setAttribute('d','M'+sx+' '+sy+'Q'+(sx+14)+' '+(sy+16)+' '+(sx+10)+' '+(sy+40));
+    $armB.setAttribute('d','M'+sx+' '+sy+'Q'+(sx-10)+' '+(sy+16)+' '+(sx-12)+' '+(sy+38));
+  }else{
+    $bowl.setAttribute('transform','translate('+bx+' '+by+')');
+    $armF.setAttribute('d','M'+sx+' '+sy+'Q'+(sx+8)+' '+(sy-22)+' '+(bx+24)+' '+(by+30));
+    $armB.setAttribute('d','M'+sx+' '+sy+'Q'+(sx-14)+' '+(sy-18)+' '+(bx-22)+' '+(by+30));
+    fall.x=bx;fall.y=by;
+  }
+  var ha=(lerp(68,3,t)*.9+5)*R,hx2=sx+19*Math.sin(ha),hy2=sy-19*Math.cos(ha);
+  $head.setAttribute('transform','translate('+hx2+' '+hy2+') rotate('+(ha/R*.8-9*t)+')');
+  $mouth.setAttribute('d','M1 6Q6 '+lerp(1,12,t)+' 11 6');
+  var wet=Math.max(0,1-t*1.6);$sweat.style.opacity=wet;$sweat.setAttribute('transform','translate(0 '+((time*8)%12)+')');
+  $shadow.setAttribute('cx',HX-8);$shadow.setAttribute('rx',lerp(78,48,t));
+}
+var last=0;
+function frame(ts){
+  var time=ts/1000,p=Math.min(st.count/T(),1);
+  disp+=(p-disp)*.07;kick*=.86;
+  beadT+=(beadV-beadT)*.2;
+  var f=((beadT%1)+1)%1;
+  beadEls.forEach(function(o){var sl=o.i+f,x=-20+sl*28,y=178+sl*8,op=o.i===6?1-f:1;
+    o.bd.setAttribute('cx',x);o.bd.setAttribute('cy',y);o.sh.setAttribute('cx',x+2);o.sh.setAttribute('cy',y+3);
+    o.bd.setAttribute('opacity',op);o.sh.setAttribute('opacity',op)});
+  draw(disp,time);
+  for(var i=flyers.length-1;i>=0;i--){var o=flyers[i];o.l++;o.x+=o.vx;o.y+=o.vy;o.vy+=.35;
+    var gl=G-bowlY-1;if(o.y>=gl){o.y=gl;o.vy*=-.42;o.vx*=.7}
+    var q=o.l/150;if(q>=1){o.el.remove();flyers.splice(i,1);continue}
+    o.el.setAttribute('cx',o.x);o.el.setAttribute('cy',o.y);o.el.setAttribute('opacity',q<.8?1:(1-q)/.2)}
+  var dg=$('drops');
+  for(var i=drops.length-1;i>=0;i--){var o=drops[i];
+    if(o.d>0){o.d--;continue}
+    if(!o.el)o.el=mk('circle',{r:9,fill:'url(#bead)'},dg);
+    o.l++;var q=Math.min(o.l/26,1),tg=target();
+    o.el.setAttribute('cx',lerp(o.sx,tg.x,q));o.el.setAttribute('cy',lerp(o.sy,tg.y,q*q));o.el.setAttribute('r',lerp(9,5.5,q));
+    if(q>=1){o.el.remove();drops.splice(i,1);pending--;removeOne(false);kick=Math.max(kick,.5);
+      sparks.push({l:0,x:tg.x,y:tg.y,el:mk('circle',{fill:'none',stroke:'#fff3b0','stroke-width':3},dg)})}}
+  for(var i=sparks.length-1;i>=0;i--){var o=sparks[i];o.l++;
+    if(o.l>14){o.el.remove();sparks.splice(i,1);continue}
+    o.el.setAttribute('cx',o.x);o.el.setAttribute('cy',o.y);o.el.setAttribute('r',6+o.l*2);o.el.setAttribute('opacity',1-o.l/14)}
+  requestAnimationFrame(frame)}
+function target(){for(var k=0;k<order.length;k++){var b=balls[order[k]];if(b.alive)return{x:bowlX+b.x,y:bowlY+b.y}}return{x:bowlX,y:bowlY-4}}
+function spawn(d){pending++;drops.push({d:d,l:0,sx:148,sy:226,el:null})}
+function startFall(){fall.on=true;fall.vx=-1.4;fall.vy=-3;fall.vr=-1.6;fall.rot=0}
+function clearDrops(){fall.on=false;drops.forEach(function(o){o.el&&o.el.remove()});drops=[];pending=0}
+
+function ui(){
+  $('cnum').textContent=ar(st.count);$('ctar').textContent='/ '+ar(T());
+  $('ringp').setAttribute('stroke-dashoffset',289*(1-Math.min(st.count/T(),1)));
+  $('today').textContent=ar(st.today);$('rounds').textContent=ar(st.rounds);$('total').textContent=ar(st.total);
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',+c.dataset.t===T())});}
+function buzz(n){try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}}
+
+var busy=false;
+function hit(){
+  if(busy)return;
+  st.count++;st.total++;st.today++;kick=1;beadV+=1;
+  var want=N-Math.floor(N*Math.min(st.count/T(),1)),n=alive()-pending-want;for(var i=0;i<n;i++)spawn(i*5);
+  if(st.count>=T()){busy=true;buzz([60,40,140]);save();ui();
+    setTimeout(startFall,900);setTimeout(function(){$('doneTxt').textContent='أتممت '+ar(T())+' استغفارًا، وخفّ حملك. اللهم اغفر لنا وارحمنا.';$('done').classList.add('show')},2600);return}
+  buzz(14);save();ui()}
+$('ok').onclick=function(){$('done').classList.remove('show');st.rounds++;st.count=0;refill();busy=false;save();ui()};
+$('scene').addEventListener('pointerdown',hit);
+$('btn').addEventListener('pointerdown',hit);
+$('reset').onclick=function(){st.count=0;refill();busy=false;$('done').classList.remove('show');save();ui()};
+$('chips').addEventListener('click',function(e){var t=e.target.dataset.t;if(!t)return;st.target=+t;st.count=0;refill();busy=false;save();ui()});
+
+load();if(st.count>=T())st.count=0;sync(true);disp=Math.min(st.count/T(),1);ui();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
