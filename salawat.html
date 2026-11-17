@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>اللهم صلِّ وسلم على نبينا محمد</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+body{margin:0;min-height:100vh;font-family:'Tajawal',sans-serif;color:#e6f6ff;background:#0a3b5a;display:flex;justify-content:center}
+.app{width:100%;max-width:440px;background:#0a3b5a;padding-bottom:calc(env(safe-area-inset-bottom) + 22px)}
+#scene{direction:ltr;display:block;width:100%;height:auto;touch-action:manipulation;cursor:pointer}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 3.4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+.ray{animation:ray 7s ease-in-out infinite}
+@keyframes ray{50%{transform:translateX(16px)}}
+.wave{animation:wv 9s linear infinite}
+@keyframes wv{to{transform:translateX(-120px)}}
+.sf{transform-box:fill-box;transform-origin:center;animation:sfw 5s ease-in-out infinite}
+@keyframes sfw{50%{transform:rotate(9deg) scale(1.05)}}
+.amb{animation:amb var(--t) linear infinite;animation-delay:var(--d)}
+@keyframes amb{0%{transform:translateY(0);opacity:0}10%{opacity:.7}90%{opacity:.5}100%{transform:translateY(-480px);opacity:0}}
+.bw{display:flex;justify-content:center;margin-top:-50px;position:relative;z-index:3}
+.bub{position:relative;width:92px;height:92px;border:0;border-radius:50%;background:#5bc0ef;color:#06304a;font:inherit;font-weight:700;font-size:14px;line-height:1.35;cursor:pointer;
+box-shadow:0 0 0 4px #0a3b5a,0 0 0 8px #bfe6fb,0 10px 24px rgba(0,0,0,.35);transition:transform .08s}
+.bub:active{transform:scale(.92)}
+.rg{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;border:3px solid #bfe6fb;pointer-events:none;animation:rg .7s ease-out forwards}
+@keyframes rg{to{transform:scale(2);opacity:0}}
+.panel{padding:0 16px}
+.stats{display:flex;gap:8px;margin:22px 0 12px}
+.card{flex:1;text-align:center;padding:10px 4px;border-radius:14px;background:rgba(255,255,255,.09)}
+.card b{display:block;font-size:22px;font-variant-numeric:tabular-nums;color:#ffe9a8}
+.card span{font-size:12px;opacity:.75}
+.rs{width:100%;padding:12px;border-radius:14px;border:0;font:inherit;font-weight:700;font-size:15px;cursor:pointer;background:rgba(255,255,255,.12);color:#e6f6ff}
+.hadith{margin:18px 0 6px;padding:16px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(143,216,255,.35)}
+.hadith h3{margin:0 0 8px;font-size:15px;color:#8fd8ff}
+.hadith p{font-family:'Amiri',serif;font-size:19px;line-height:1.9;margin:0}
+.hadith small{display:block;margin-top:8px;opacity:.7;font-size:12px}
+</style>
+</head>
+<body>
+<div class="app">
+<svg id="scene" viewBox="0 0 360 560" role="img" aria-label="مشهد تحت الماء">
+<rect width="360" height="560" fill="#0a3b5a"/>
+<rect width="360" height="150" fill="#1b7ba6"/>
+<rect y="150" width="360" height="140" fill="#15668f"/>
+<rect y="290" width="360" height="140" fill="#0f5176"/>
+<g fill="#fff">
+<polygon class="ray" points="80,0 140,0 240,500 120,500" opacity=".07"/>
+<polygon class="ray" style="animation-delay:-3s" points="210,0 245,0 350,430 280,430" opacity=".06"/>
+<polygon class="ray" style="animation-delay:-5s" points="20,0 50,0 100,380 50,380" opacity=".05"/>
+</g>
+<circle cx="316" cy="62" r="15" fill="#f6e7b0"/><circle cx="322" cy="58" r="13" fill="#1b7ba6"/>
+<g fill="#f6e7b0"><circle cx="270" cy="44" r="1.5"/><circle cx="60" cy="70" r="1.5"/><circle cx="120" cy="98" r="1"/></g>
+<g fill="none" stroke="#fff" stroke-linecap="round">
+<path class="wave" stroke-opacity=".35" stroke-width="1.6" d="M-120 14 Q-90 8 -60 14 T0 14 T60 14 T120 14 T180 14 T240 14 T300 14 T360 14 T420 14 T480 14"/>
+<path class="wave" stroke-opacity=".2" stroke-width="1" style="animation-duration:13s" d="M-120 22 Q-90 16 -60 22 T0 22 T60 22 T120 22 T180 22 T240 22 T300 22 T360 22 T420 22 T480 22"/>
+</g>
+<g id="amb"></g>
+<g id="fish"></g>
+<g id="weed">
+<path class="sway" d="M26 560 Q12 505 30 465 Q40 438 28 410" fill="none" stroke="#2f8a6a" stroke-width="8" stroke-linecap="round"/>
+<path class="sway" style="animation-delay:-1.2s" d="M48 560 Q62 520 48 490 Q42 470 50 446" fill="none" stroke="#3aa37d" stroke-width="6" stroke-linecap="round"/>
+<path class="sway" style="animation-delay:-2s" d="M334 560 Q348 508 330 468 Q322 440 334 412" fill="none" stroke="#2f8a6a" stroke-width="8" stroke-linecap="round"/>
+<path class="sway" style="animation-delay:-.6s" d="M312 560 Q298 524 312 496 Q318 476 310 452" fill="none" stroke="#3aa37d" stroke-width="6" stroke-linecap="round"/>
+</g>
+<path d="M0 534 Q90 516 180 530 T360 522 L360 560 L0 560Z" fill="#d9c48a"/>
+<path d="M0 548 Q100 538 190 546 T360 542 L360 560 L0 560Z" fill="#c9b074"/>
+<g id="stars"></g>
+<text x="180" y="338" text-anchor="middle" fill="#8fd8ff" fill-opacity=".75" style="font:500 12px Tajawal,sans-serif">اضغط على الفقاعة لإنهاء العد</text>
+<g id="bigG" style="cursor:pointer">
+<g id="bc">
+<circle cx="180" cy="228" r="82" fill="#5bc0ef" fill-opacity=".22"/>
+<circle cx="180" cy="228" r="82" fill="none" stroke="#bfe6fb" stroke-width="3" vector-effect="non-scaling-stroke"/>
+<path d="M126 184 Q136 160 164 152" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5" stroke-linecap="round"/>
+</g>
+<text id="cnt" x="180" y="236" text-anchor="middle" fill="#fff" style="font:700 54px Tajawal,sans-serif">0</text>
+<text id="lab" x="180" y="262" text-anchor="middle" fill="#fff" style="font:500 13px Tajawal,sans-serif">صلاة</text>
+</g>
+<g id="fx"></g>
+<text x="180" y="34" text-anchor="middle" fill="#fff" style="font:700 20px Amiri,serif">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</text>
+<rect x="132" y="46" width="96" height="32" rx="16" fill="#0f4262" fill-opacity=".85" stroke="#8fd8ff" stroke-width=".5"/>
+<text id="tm" x="180" y="69" text-anchor="middle" fill="#fff" style="font:700 19px Tajawal,sans-serif">00:00</text>
+</svg>
+<div class="bw"><button class="bub" id="btn" aria-label="صلِّ على النبي">صلِّ على<br>النبي</button></div>
+<div class="panel">
+<div class="stats">
+<div class="card"><b id="s1">0</b><span>حسنات</span></div>
+<div class="card"><b id="s2">0</b><span>سيئات تُمحى</span></div>
+<div class="card"><b id="s3">0</b><span>درجات</span></div>
+</div>
+<div class="hadith">
+<h3>الحديث</h3>
+<p>أَتَانِي آتٍ مِنْ عِنْدِ رَبِّي عَزَّ وَجَلَّ، فَقَالَ: مَنْ صَلَّى عَلَيْكَ مِنْ أُمَّتِكَ صَلَاةً كَتَبَ اللَّهُ لَهُ بِهَا عَشْرَ حَسَنَاتٍ، وَمَحَا عَنْهُ عَشْرَ سَيِّئَاتٍ، وَرَفَعَ لَهُ عَشْرَ دَرَجَاتٍ، وَرَدَّ عَلَيْهِ مِثْلَهَا.</p>
+<small>الراوي: أبو طلحة الأنصاري · أخرجه أحمد (16399) · صححه الألباني في صحيح الجامع (57)</small>
+</div>
+</div>
+</div>
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg',$=function(i){return document.getElementById(i)};
+function E(tag,at,par,txt){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;if(par)par.appendChild(e);return e}
+var n=0,tot=0,sec=0,lastTap=0,wob=0,Rc=34,Rt=34,popping=0,auto=0;
+try{var sv=JSON.parse(localStorage.getItem('salawat1')||'{}');n=sv.n|0;tot=sv.tot|0;sec=sv.sec|0}catch(e){}
+function save(){try{localStorage.setItem('salawat1',JSON.stringify({n:n,tot:tot,sec:sec}))}catch(e){}}
+function fmt(x){return x.toLocaleString('en-US')}
+function ck(v){var h=Math.floor(v/3600),m=Math.floor(v%3600/60),s=v%60,p=function(q){return('0'+q).slice(-2)};return(h?h+':':'')+p(m)+':'+p(s)}
+function clock(){$('tm').textContent=ck(sec)}
+function ui(){$('cnt').textContent=fmt(n);$('s1').textContent=fmt(tot*10);$('s2').textContent=fmt(tot*10);$('s3').textContent=fmt(tot*10);clock();Rt=34+48*Math.min(1,n/100)}
+Rc=34+48*Math.min(1,n/100);ui();
+setInterval(function(){if(Date.now()-lastTap<30000&&lastTap){sec++;clock()}},1000);
+setInterval(save,5000);
+/* ambient bubbles */
+var amb=$('amb');
+for(var i=0;i<12;i++){var r=2+Math.random()*4;var c=E('circle',{cx:20+Math.random()*320,cy:560,r:r,fill:'none',stroke:'#fff','stroke-opacity':.5,'stroke-width':1,'class':'amb'},amb);
+c.style.setProperty('--t',(9+Math.random()*9)+'s');c.style.setProperty('--d',(-Math.random()*14)+'s')}
+/* fish */
+var FL=$('fish'),fishes=[];
+function fishG(o){var g=E('g',{});
+var tail=E('g',{},g);E('path',{d:'M-17 0 L-37 -12 Q-31 0 -37 12Z',fill:o.f},tail);
+E('path',{d:'M-8 -9 Q0 -22 11 -8Z',fill:o.f},g);
+E('path',{d:'M-4 9 Q2 19 8 9Z',fill:o.f},g);
+E('ellipse',{rx:21,ry:12,fill:o.c},g);
+if(o.k==='clown'){E('path',{d:'M-5 -11 Q-1 0 -5 11 L1 11 Q5 0 1 -11Z',fill:'#fff'},g);E('path',{d:'M9 -9 Q12 0 9 9 L13 8 Q15 0 13 -8Z',fill:'#fff'},g)}
+if(o.k==='tang'){E('path',{d:'M-14 -3 Q0 -9 16 -1',fill:'none',stroke:'#2ec4d6','stroke-width':3.4,'stroke-linecap':'round'},g)}
+if(o.k==='dots'){[[-8,-3],[-1,4],[5,-5],[-10,5]].forEach(function(p){E('circle',{cx:p[0],cy:p[1],r:2.2,fill:o.d},g)})}
+E('ellipse',{cx:2,cy:5,rx:14,ry:4.5,fill:'#fff','fill-opacity':.2},g);
+E('circle',{cx:12,cy:-2.5,r:3.3,fill:'#fff'},g);E('circle',{cx:13,cy:-2.5,r:1.6,fill:'#10213a'},g);
+return {g:g,tail:tail}}
+[
+{k:'clown',c:'#ff9248',f:'#ff6d1f',s:1.15,y:150,v:20,dir:1,x:60},
+{k:'dots',c:'#ee72b8',f:'#8a4fd6',d:'#8a4fd6',s:1.35,y:350,v:15,dir:-1,x:260},
+{k:'tang',c:'#ffd23f',f:'#2ec4d6',s:1.05,y:430,v:26,dir:1,x:210},
+{k:'plain',c:'#4fd1a5',f:'#1f9e84',s:.7,y:110,v:34,dir:-1,x:300},
+{k:'plain',c:'#4fd1a5',f:'#1f9e84',s:.6,y:124,v:34,dir:-1,x:350},
+{k:'plain',c:'#7aa8ff',f:'#4a6fd6',s:.85,y:300,v:22,dir:1,x:-20},
+{k:'dots',c:'#b48cf2',f:'#7a56d6',d:'#ffe27a',s:.9,y:480,v:18,dir:-1,x:120}
+].forEach(function(o){var p=fishG(o);FL.appendChild(p.g);o.el=p.g;o.tail=p.tail;o.ph=Math.random()*6;fishes.push(o)});
+/* starfish */
+function starfish(cx,cy,R,col,dot,rot){
+var o=E('g',{transform:'translate('+cx+' '+cy+') rotate('+rot+')'},$('stars'));var g=E('g',{'class':'sf'},o);
+var pts=[];for(var i=0;i<10;i++){var a=-Math.PI/2+i*Math.PI/5,r=i%2?R*.46:R;pts.push((Math.cos(a)*r).toFixed(1)+','+(Math.sin(a)*r).toFixed(1))}
+E('polygon',{points:pts.join(' '),fill:col,stroke:col,'stroke-width':R*.28,'stroke-linejoin':'round'},g);
+for(var j=0;j<5;j++){var b=-Math.PI/2+j*Math.PI*2/5;for(var q=1;q<=2;q++){E('circle',{cx:(Math.cos(b)*R*.3*q).toFixed(1),cy:(Math.sin(b)*R*.3*q).toFixed(1),r:R*.06,fill:dot},g)}}
+E('circle',{cx:0,cy:0,r:R*.12,fill:dot},g)}
+starfish(76,534,24,'#ff7a59','#ffd2c0',-8);
+starfish(292,540,18,'#f7a6c0','#fff0f5',14);
+starfish(188,548,11,'#ffd23f','#fff3b8',0);
+/* effects */
+var fxl=[],FX=$('fx'),active=0,gen=0;
+function pop(x,y,s,col){var ps=[];for(var i=0;i<8;i++){var a=i/8*6.283+Math.random()*.4;ps.push({e:E('circle',{cx:x,cy:y,r:2.6,fill:col||'#bfe6fb'},FX),a:a})}
+var t=0;fxl.push(function(dt){t+=dt;var k=Math.min(1,t/.5);ps.forEach(function(p){p.e.setAttribute('cx',x+Math.cos(p.a)*s*k);p.e.setAttribute('cy',y+Math.sin(p.a)*s*k);p.e.setAttribute('opacity',1-k)});
+if(k>=1){ps.forEach(function(p){p.e.remove()});return true}})}
+function riser(){var x=180+(Math.random()*10-5),y0=572,y1=228+Rc-4,t=0,D=.62;
+var g=E('g',{},FX);E('circle',{r:12,fill:'#5bc0ef','fill-opacity':.3,stroke:'#bfe6fb','stroke-width':1.5},g);E('circle',{cx:-4,cy:-4,r:2.5,fill:'#fff','fill-opacity':.8},g);
+fxl.push(function(dt){t+=dt;var k=Math.min(1,t/D),e=Math.pow(k,1.6);g.setAttribute('transform','translate('+(x+Math.sin(t*14)*3)+' '+(y0+(y1-y0)*e)+')');
+if(k>=1){g.remove();pop(180,y1+2,30);wob=1;n++;tot++;ui();save();results();if(n>=100&&!auto){auto=1;setTimeout(bigPop,900)}return true}})}
+var RS=[
+{a:'+10',b:'حسنات',x:62,y:158,c:'#ffe27a'},
+{a:'-10',b:'سيئات',x:298,y:158,c:'#ff9fbd'},
+{a:'+10',b:'درجات',x:62,y:300,c:'#7ee0b0'},
+{a:'صلاة',b:'من الله',x:298,y:300,c:'#8fd8ff'}];
+function res(o,delay,big){var gn=gen,t=-delay,g=null,popped=0,x=o.x+(big?0:Math.random()*12-6),y=o.y+(big?0:Math.random()*12-6),H=big?2.8:1.15,R=big?42:35,L=big?16:34;active++;
+fxl.push(function(dt){t+=dt;if(!big&&gn!==gen){if(g)g.remove();active--;return true}if(t<0)return;
+if(!g){g=E('g',{opacity:0},FX);E('circle',{r:R,fill:'#5bc0ef','fill-opacity':.25,stroke:o.c,'stroke-width':2},g);
+E('path',{d:'M-24 -15 Q-17 -28 -2 -32',fill:'none',stroke:'#fff','stroke-opacity':.6,'stroke-width':3,'stroke-linecap':'round'},g);
+E('text',{y:-2,'text-anchor':'middle',fill:o.c,style:'font:700 '+(o.a.length>6?13:o.a.length>4?15:17)+'px Tajawal,sans-serif'},g,o.a);
+E('text',{y:15,'text-anchor':'middle',fill:'#fff',style:'font:500 '+(o.b.length>8?11:13)+'px Tajawal,sans-serif'},g,o.b)}
+var s,yy=y,al=1;
+if(t<.25){s=.2+.8*(t/.25);yy=y+30*(1-t/.25);al=t/.25}
+else if(t<H){s=1;yy=y-L*((t-.25)/(H-.25))}
+else{if(!popped){popped=1;pop(x,y-L-R,R+4,o.c)}var k=(t-H)/.15;s=1+.25*k;yy=y-L-4*k;al=1-k}
+g.setAttribute('transform','translate('+x+' '+yy+') scale('+s+')');g.setAttribute('opacity',Math.max(0,al));
+if(t>=H+.15){g.remove();active--;return true}})}
+function results(){if(active>10)return;RS.forEach(function(o,i){res(o,.15+i*.4)})}
+function burst(){for(var i=0;i<28;i++){(function(){var a=Math.random()*6.283,sp=60+Math.random()*80,e=E('circle',{cx:180,cy:228,r:2+Math.random()*3,fill:['#bfe6fb','#fff','#8fd8ff','#5bc0ef'][i%4]},FX),tt=0;
+fxl.push(function(dt){tt+=dt;var k=Math.min(1,tt/.7);e.setAttribute('cx',180+Math.cos(a)*(Rc*.4+sp*k));e.setAttribute('cy',228+Math.sin(a)*(Rc*.4+sp*k));e.setAttribute('opacity',1-k);if(k>=1){e.remove();return true}})})()}}
+function bigPop(){auto=0;if(!n||popping)return;popping=1;gen++;var c=n,s0=sec,tm;
+burst();pop(180,228,Rc+30);
+$('bigG').setAttribute('opacity',0);
+var T=[{a:'+'+fmt(c*10),b:'حسنات',x:64,y:160,c:'#ffe27a'},{a:'-'+fmt(c*10),b:'سيئات',x:296,y:160,c:'#ff9fbd'},{a:'+'+fmt(c*10),b:'درجات',x:64,y:310,c:'#7ee0b0'},{a:fmt(c),b:'صلاة من الله',x:296,y:310,c:'#8fd8ff'}];
+T.forEach(function(o,i){res(o,.1+i*.3,1)});
+var t=0,tx=E('text',{x:180,y:112,'text-anchor':'middle',fill:'#ffe27a',style:'font:700 21px Amiri,serif'},FX,'ما شاء الله، '+fmt(c)+' صلاة في '+ck(s0));
+fxl.push(function(dt){t+=dt;tx.setAttribute('opacity',t<3?1:Math.max(0,1-(t-3)/.6));if(t>=3.6){tx.remove();return true}});
+n=0;sec=0;lastTap=0;Rc=0;ui();save();
+setTimeout(function(){$('bigG').setAttribute('opacity',1);popping=0},900)}
+/* main loop */
+var big=$('bigG'),bc=$('bc'),last=performance.now(),T=0;
+function frame(now){var dt=Math.min(.05,(now-last)/1000);last=now;T+=dt;
+Rc+=(Rt-Rc)*Math.min(1,dt*(Rc<Rt-8?5:3));
+bc.setAttribute('transform','translate(180 228) scale('+(Rc/82).toFixed(3)+') translate(-180 -228)');
+var fs=Rc*.66,len=String(n).length;if(len>=4)fs*=.8;if(len>=5)fs*=.8;
+var cy=226+fs*.2;$('cnt').style.fontSize=fs.toFixed(1)+'px';$('cnt').setAttribute('y',cy.toFixed(1));$('lab').setAttribute('y',(cy+6+fs*.35).toFixed(1));
+if(wob>0){wob=Math.max(0,wob-dt*2.2);var s=Math.sin((1-wob)*22)*wob*.09;big.setAttribute('transform','translate(180 228) scale('+(1+s)+' '+(1-s)+') translate(-180 -228)')}else big.removeAttribute('transform');
+fishes.forEach(function(o){o.x+=o.dir*o.v*dt;if(o.dir>0&&o.x>420){o.x=-60}else if(o.dir<0&&o.x<-60){o.x=420}
+var yy=o.y+Math.sin(T*1.1+o.ph)*7;o.el.setAttribute('transform','translate('+o.x.toFixed(1)+' '+yy.toFixed(1)+') scale('+(o.dir*o.s)+' '+o.s+')');
+o.tail.setAttribute('transform','rotate('+(Math.sin(T*7+o.ph)*14).toFixed(1)+' -17 0)')});
+for(var i=fxl.length-1;i>=0;i--){if(fxl[i](dt))fxl.splice(i,1)}
+requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+/* input */
+function hit(e){if(e&&e.preventDefault)e.preventDefault();lastTap=Date.now();try{navigator.vibrate&&navigator.vibrate(12)}catch(x){}
+var r=document.createElement('span');r.className='rg';$('btn').appendChild(r);setTimeout(function(){r.remove()},720);riser()}
+$('btn').addEventListener('pointerdown',hit);
+$('bigG').addEventListener('pointerdown',function(e){e.stopPropagation();e.preventDefault();bigPop()});
+})();
+</script>
+</body>
+</html>
