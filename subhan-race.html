@@ -58,7 +58,7 @@ body{display:flex;align-items:center;justify-content:center}
 <!-- HUD -->
 <text class="th" x="190" y="40" text-anchor="middle" style="fill:var(--lt);font-size:17px;paint-order:stroke;stroke:var(--ls);stroke-width:3px;stroke-opacity:.6">سباق سبحان الله وبحمده</text>
 <rect x="130" y="52" width="120" height="28" rx="14" fill="#3b2415"/><text class="th" id="clock" x="190" y="72" text-anchor="middle" style="fill:#fff;font-size:15px">00:00:00</text><rect id="clk" x="130" y="52" width="120" height="28" rx="14" fill="transparent" style="cursor:pointer"/>
-<text x="190" y="96" text-anchor="middle" style="fill:var(--lt);font-size:11px;paint-order:stroke;stroke:var(--ls);stroke-width:3px;stroke-opacity:.6">باقي على نهاية اليوم</text>
+<text x="190" y="96" text-anchor="middle" style="fill:var(--lt);font-size:11px;paint-order:stroke;stroke:var(--ls);stroke-width:3px;stroke-opacity:.6"><tspan id="left">باقي على نهاية اليوم</tspan></text>
 <g transform="translate(34 98) scale(.74) translate(-34 -98)">
 <text class="th" x="89" y="106" text-anchor="middle" style="fill:var(--lt);font-size:11px;paint-order:stroke;stroke:var(--ls);stroke-width:3px;stroke-opacity:.7"><tspan id="ptc">الترتيب</tspan></text>
 <g id="rows"></g>
@@ -247,7 +247,7 @@ function hud(){
   $('myc').textContent=Math.floor(ME.f);
 }
 function clockTick(){
-  try{const p=new Intl.DateTimeFormat('en-GB',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date());const v={};p.forEach(x=>v[x.type]=+x.value);let s=86400-((v.hour%24)*3600+v.minute*60+v.second);const f=n=>String(n).padStart(2,'0');$('clock').textContent=f(Math.floor(s/3600))+':'+f(Math.floor(s%3600/60))+':'+f(s%60);if(s>=86399&&started&&DEMO)showTrophy();}catch(e){}
+  try{const p=new Intl.DateTimeFormat('en-GB',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date());const v={};p.forEach(x=>v[x.type]=+x.value);let s=86400-((v.hour%24)*3600+v.minute*60+v.second);const f=n=>String(n).padStart(2,'0');$('clock').textContent=f(v.hour%24)+':'+f(v.minute)+':'+f(v.second);$('left').textContent='باقي '+f(Math.floor(s/3600))+':'+f(Math.floor(s%3600/60))+':'+f(s%60)+' على نهاية اليوم';if(s>=86399&&started&&DEMO)showTrophy();}catch(e){}
 }
 
 /* ---------- input ---------- */
