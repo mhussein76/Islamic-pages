@@ -172,7 +172,7 @@ const lc=(a,b,u)=>{const x=h2(a),y=h2(b);return'rgb('+x.map((v,i)=>Math.round(v+
 const ln=(a,b,u)=>a+(b-a)*u;
 const stars=[];for(let i=0;i<30;i++){const c=document.createElementNS(NS,'circle');c.setAttribute('cx',(34+Math.random()*312).toFixed(0));c.setAttribute('cy',(14+Math.random()*170).toFixed(0));c.setAttribute('r',(.6+Math.random()*.9).toFixed(1));c.setAttribute('fill','#fff');c.setAttribute('opacity','0');$('stars').appendChild(c);stars.push({c,p:Math.random()*6});}
 let H=null,nightF=0;
-function dohaHours(){try{const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Qatar',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date());const v={};p.forEach(x=>v[x.type]=+x.value);return(v.hour%24)+v.minute/60+v.second/3600;}catch(e){return 12;}}
+function dohaHours(){try{const p=new Intl.DateTimeFormat('en-GB',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date());const v={};p.forEach(x=>v[x.type]=+x.value);return(v.hour%24)+v.minute/60+v.second/3600;}catch(e){return 12;}}
 function applyTime(h){
   let i=0;while(i<KF.length-2&&h>=KF[i+1][0])i++;
   const a=KF[i][1],b=KF[i+1][1],u=(h-KF[i][0])/(KF[i+1][0]-KF[i][0]);
@@ -247,7 +247,7 @@ function hud(){
   $('myc').textContent=Math.floor(ME.f);
 }
 function clockTick(){
-  try{const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Qatar',hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date());const v={};p.forEach(x=>v[x.type]=+x.value);let s=86400-((v.hour%24)*3600+v.minute*60+v.second);const f=n=>String(n).padStart(2,'0');$('clock').textContent=f(Math.floor(s/3600))+':'+f(Math.floor(s%3600/60))+':'+f(s%60);if(s>=86399&&started&&DEMO)showTrophy();}catch(e){}
+  try{const p=new Intl.DateTimeFormat('en-GB',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date());const v={};p.forEach(x=>v[x.type]=+x.value);let s=86400-((v.hour%24)*3600+v.minute*60+v.second);const f=n=>String(n).padStart(2,'0');$('clock').textContent=f(Math.floor(s/3600))+':'+f(Math.floor(s%3600/60))+':'+f(s%60);if(s>=86399&&started&&DEMO)showTrophy();}catch(e){}
 }
 
 /* ---------- input ---------- */
@@ -393,7 +393,7 @@ import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase
 import {getAuth,signInAnonymously} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import {getFirestore,doc,getDoc,setDoc,updateDoc,increment,serverTimestamp,collection,query,orderBy,limit,onSnapshot,getCountFromServer,where} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const FB={"apiKey":"AIzaSyBWgvt5ulLxbDrKd8xVPRkV2XYqT-2POaQ","authDomain":"dhikr-race.firebaseapp.com","projectId":"dhikr-race","storageBucket":"dhikr-race.firebasestorage.app","messagingSenderId":"241420262347","appId":"1:241420262347:web:882d5a551587132f3bf44e"};
-const dayKey=()=>String(Math.floor((Date.now()+10800000)/86400000));
+const dayKey=()=>{const off=-new Date().getTimezoneOffset();return Math.floor((Date.now()+off*60000)/86400000)+'_'+off;};
 const tmo=(p,ms)=>Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))]);
 let db,uid,day,myRef,created=false,name='',unsub=null,lastList=[],chain=Promise.resolve();
 async function startDay(){
