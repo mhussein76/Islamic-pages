@@ -389,6 +389,57 @@ $('tclose').addEventListener('click',()=>{$('trophy').classList.add('hide');endS
 if(P.get('trophy'))setTimeout(showTrophy,500);
 </script>
 <script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {getAuth,signInAnonymously} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {getFirestore,doc,getDoc,setDoc,updateDoc,increment,serverTimestamp,collection,query,orderBy,limit,onSnapshot,getCountFromServer,where} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const FB={"apiKey":"AIzaSyBWgvt5ulLxbDrKd8xVPRkV2XYqT-2POaQ","authDomain":"dhikr-race.firebaseapp.com","projectId":"dhikr-race","storageBucket":"dhikr-race.firebasestorage.app","messagingSenderId":"241420262347","appId":"1:241420262347:web:882d5a551587132f3bf44e"};
+const dayKey=()=>String(Math.floor((Date.now()+10800000)/86400000));
+const tmo=(p,ms)=>Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))]);
+let db,uid,day,myRef,created=false,name='',unsub=null,lastList=[],chain=Promise.resolve();
+async function startDay(){
+  day=dayKey();myRef=doc(db,'days',day,'players',uid);
+  const snap=await tmo(getDoc(myRef),6000);
+  created=snap.exists();
+  if(created)name=snap.data().name;
+  else{try{name=localStorage.getItem('subhan_name')||'';}catch(e){}if(!name)name=API.genName();try{localStorage.setItem('subhan_name',name);}catch(e){}}
+  API.setMe(name,created?snap.data().count:0);
+  const col=collection(db,'days',day,'players');
+  if(unsub)unsub();
+  unsub=onSnapshot(query(col,orderBy('count','desc'),limit(5)),s=>{lastList=s.docs.map(d=>({id:d.id,name:d.data().name,count:d.data().count}));API.setLeaders(lastList,uid);},e=>console.warn(e));
+  refreshStats();
+}
+async function refreshStats(){
+  try{
+    const col=collection(db,'days',day,'players');
+    const t=await getCountFromServer(col);API.setTotal(t.data().count);
+    const r=await getCountFromServer(query(col,where('count','>',API.count())));API.setRank(r.data().count+1);
+  }catch(e){console.warn(e);}
+}
+window.onTapSend=()=>{
+  chain=chain.then(async()=>{
+    try{
+      if(!created){await setDoc(myRef,{name,count:1,last:serverTimestamp()});created=true;}
+      else await updateDoc(myRef,{count:increment(1),last:serverTimestamp()});
+    }catch(e){console.warn(e);API.revert();}
+  });
+};
+(async()=>{
+  try{
+    const app=initializeApp(FB);const auth=getAuth(app);db=getFirestore(app);
+    const cred=await tmo(signInAnonymously(auth),6000);uid=cred.user.uid;
+    await startDay();
+    API.ready(true);
+    setInterval(refreshStats,15000);
+    setInterval(async()=>{
+      if(dayKey()!==day){
+        const w=lastList[0];
+        if(unsub){unsub();unsub=null;}
+        API.dayEnd(w?{name:w.id===uid?name+' (أنت)':w.name,f:w.count,me:false}:{name:name,f:API.count(),me:true});
+        try{await startDay();}catch(e){console.warn(e);}
+      }
+    },1000);
+  }catch(e){console.warn('backend unavailable',e);API.ready(false);}
+})();
 
 </script>
 <script data-goatcounter="https://mhussein1.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
