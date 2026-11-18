@@ -364,7 +364,7 @@ setTimeout(()=>{if(!LIVE&&!DEMO)window.API.ready(false);},7000);
 window.API={
   genName(){return NAMES[Math.floor(Math.random()*NAMES.length)]+' '+(10+Math.floor(Math.random()*90));},
   ready(ok){
-    if(ok){LIVE=true;COOL=2.05;}
+    if(ok){LIVE=true;COOL=2.3;}
     else{DEMO=true;COOL=1.2;$('ptc').textContent='الترتيب · 42 متسابق';ME.cnt=120;ME.f=120;[['البرق',190,2.7],['النسيم',152,2.9],['الأصيل',139,3.1],['الشهم',104,3.4]].forEach((a,i)=>{const c=SLOTS[i];c.on=true;c.cnt=a[1];c.f=a[1];c.iv=a[2];c.shown=c.cnt-ME.cnt;});}
     readyRes();hud();
   },
